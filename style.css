@@ -6,8 +6,6 @@ body {
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
     transition: background-color 0.5s, color 0.5s;
-    font-size: 18px;
-    line-height: 1.8;
 }
 
 @keyframes gradientBG {
@@ -19,68 +17,122 @@ body {
 /* --- Day/Night Mode Themes --- */
 .day-mode {
     --bg-panel: rgba(255, 255, 255, 0.2);
-    --text-color: #2c3e50;
+    --text-color: #333;
     --glow-color: cyan;
     --shadow-color: rgba(255, 255, 255, 0.5);
 }
 
 .night-mode {
     --bg-panel: rgba(0, 0, 0, 0.3);
-    --text-color: #ecf0f1;
+    --text-color: #f0f0f0;
     --glow-color: magenta;
     --shadow-color: rgba(0, 0, 0, 0.4);
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
 /* --- Cover Page --- */
-#cover-page { display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; color: white; }
-#cover-page h1 { font-size: 4rem; text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
-#cover-page p { font-size: 1.5rem; }
-#start-button { padding: 12px 25px; font-size: 1rem; cursor: pointer; border: 2px solid white; background: transparent; color: white; border-radius: 50px; transition: background 0.3s, box-shadow 0.3s; }
-#start-button:hover { background: rgba(255, 255, 255, 0.2); box-shadow: 0 0 20px var(--glow-color); }
+#cover-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    color: white;
+}
 
-/* --- Header & Controls --- */
-.header-controls { position: fixed; top: 15px; right: 20px; display: flex; gap: 15px; z-index: 1000; }
-.header-controls button { background: var(--bg-panel); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); color: var(--text-color); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+.cover-content h1 {
+    font-size: 4rem;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
 
-/* --- Table of Contents (Sidebar) --- */
+.cover-content p {
+    font-size: 1.5rem;
+}
+
+#start-button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    border-radius: 50px;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+#start-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+
+/* --- Main Content & Controls --- */
+.header-controls {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.header-controls button {
+    background: var(--bg-panel);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* --- Table of Contents (TOC) --- */
 #toc-container {
     position: fixed;
     left: 20px;
     top: 20px;
-    width: 260px;
     background: var(--bg-panel);
     backdrop-filter: blur(12px);
     border-radius: 15px;
     padding: 15px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    max-height: 90vh;
+    max-height: 80vh;
     overflow-y: auto;
     z-index: 999;
-    transition: transform 0.4s ease-in-out;
 }
 
-#toc-title { cursor: pointer; margin: 0 0 10px 0; color: var(--text-color); text-align: center; }
-#toc-list { list-style: none; padding: 0; margin: 0; }
-#toc-list a { display: block; padding: 8px; color: var(--text-color); text-decoration: none; border-radius: 5px; transition: background 0.3s, box-shadow 0.3s; }
-#toc-list a:hover, #toc-list a.active { background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 15px var(--glow-color); }
-
-/* Collapsed Sidebar Style */
-#toc-container.collapsed {
-    transform: translateX(-120%);
+#toc-title {
+    cursor: pointer;
+    margin: 0 0 10px 0;
+    color: var(--text-color);
 }
 
-/* --- Chapters Container --- */
+#toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#toc-list a {
+    display: block;
+    padding: 8px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+#toc-list a:hover, #toc-list a.active {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* --- Chapter Box --- */
 #chapters-container {
-    margin-left: 300px;
+    margin-left: 300px; /* Space for TOC */
     padding: 20px;
     color: var(--text-color);
-    transition: margin-left 0.4s ease-in-out;
-}
-
-#chapters-container.full-width {
-    margin-left: 20px;
 }
 
 .chapter {
@@ -94,32 +146,19 @@ body {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.chapter:hover { transform: translateY(-5px); box-shadow: 0 0 25px var(--glow-color); }
+.chapter:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px var(--glow-color);
+}
 
-/* --- Custom Class Styling --- */
-.chapter h3 { text-align: center; font-size: 1.8em; color: var(--text-color); margin-bottom: 25px; }
-.p1 { font-size: 1.8em; font-weight: bold; text-align: center; color: var(--text-color); margin-bottom: 30px; }
-.p2 { font-size: 1.4em; font-weight: bold; text-align: center; color: var(--text-color); margin-top: 25px; margin-bottom: 15px; }
-.p3 { font-size: 1.15em; line-height: 2.0; text-align: justify; color: var(--text-color); margin-bottom: 15px; }
-
-/* --- Footer (Overlay) --- */
+/* --- Footer --- */
 footer {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--bg-panel);
-    backdrop-filter: blur(10px);
-    padding: 10px 15px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-    transition: all 0.3s ease;
+    text-align: center;
+    padding: 20px;
 }
 
 .footer-text {
-    margin: 0;
-    font-size: 0.9em;
+    font-size: 1rem;
     color: var(--text-color);
     text-shadow: 0 0 8px var(--shadow-color);
 }
