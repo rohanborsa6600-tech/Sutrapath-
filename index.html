@@ -24,7 +24,7 @@
         <nav id="navbar">
             <div class="navbar-content">
                 <button id="hamburger-btn">☰</button>
-                <span class="navbar-title">सूत्रपाठ</span>
+                <span id="navbar-chapter-title" class="navbar-title">सूत्रपाठ</span>
                 <div class="navbar-controls">
                     <button id="decrease-font">A-</button>
                     <button id="increase-font">A+</button>
@@ -44,6 +44,13 @@
         <main id="chapters-container">
             <!-- चॅप्टर्स येथे आपोआप तयार होतील -->
         </main>
+        
+        <!-- Pagination Controls -->
+        <div id="pagination-controls">
+            <button id="prev-chapter-btn">« पूर्वीचा</button>
+            <span id="chapter-indicator"></span>
+            <button id="next-chapter-btn">पुढील »</button>
+        </div>
 
         <!-- Footer -->
         <footer>
@@ -281,8 +288,6 @@
 
         <!-- तुमचा उर्वरित सर्व HTML कोड येथे टाका... -->
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontsource-tiro-devanagari-marathi/5.0.19/400.css"></script>
     <script src="script.js"></script>
 </body>
 </html>
