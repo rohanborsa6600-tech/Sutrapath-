@@ -45,6 +45,74 @@ body {
 .p2 { font-size: 1.4em; font-weight: bold; text-align: center; color: var(--text-color); margin-top: 25px; margin-bottom: 15px; }
 .p3 { font-size: 1.15em; line-height: 2.0; text-align: justify; color: var(--text-color); margin-bottom: 15px; }
 
-/* --- Footer --- */
-footer { text-align: center; padding: 20px; }
-.footer-text { font-size: 1rem; color: var(--text-color); text-shadow: 0 0 8px var(--shadow-color); }
+/* --- Footer --- *//* --- Footer (नवीन स्टाईल) --- */
+footer {
+    position: fixed; /* स्क्रीनवर एका जागी स्थिर राहील */
+    bottom: 20px; /* खालून 20px वर */
+    right: 20px; /* उजवीकडून 20px आत */
+    background: var(--bg-panel); /* लिक्विड ग्लास इफेक्ट */
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* सर्वात वर दिसेल */
+    transition: all 0.3s ease;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--text-color);
+    text-shadow: 0 0 8px var(--shadow-color);
+}
+
+/* --- Table of Contents (TOC) --- */
+#toc-container {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    width: 260px; /* रुंदी निश्चित केली */
+    background: var(--bg-panel);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 999;
+    transition: transform 0.4s ease-in-out; /* ॲनिमेशनसाठी */
+}
+
+#toc-title {
+    cursor: pointer;
+    margin: 0 0 10px 0;
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* Sidebar लपल्यावर (collapsed) काय होईल */
+#toc-container.collapsed {
+    transform: translateX(-110%); /* Sidebar डावीकडे बाहेर जाईल */
+}
+
+#toc-container.collapsed #toc-list {
+    display: none; /* यादी लपवा */
+}
+
+/* --- Chapter Box --- */
+#chapters-container {
+    margin-left: 300px; /* Sidebar साठी जागा सोडा */
+    padding: 20px;
+    color: var(--text-color);
+    transition: margin-left 0.4s ease-in-out; /* ॲनिमेशनसाठी */
+}
+
+/* Sidebar लपल्यावर चॅप्टर पूर्ण रुंदी घेईल */
+#chapters-container.full-width {
+    margin-left: 20px; /* डावीकडे कमी जागा सोडा */
+}
+
+/* (बाकी सर्व CSS नियम जसेच्या तसे ठेवा) */
+
