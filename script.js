@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('start-button');
     const coverPage = document.getElementById('cover-page');
     const mainContent = document.getElementById('main-content');
+    const tocContainer = document.getElementById('toc-container');
+    const tocTitle = document.getElementById('toc-title');
     const tocList = document.getElementById('toc-list');
     const increaseFont = document.getElementById('increase-font');
     const decreaseFont = document.getElementById('decrease-font');
@@ -18,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentChapterDiv = null;
 
         nodes.forEach(node => {
-            // नवीन चॅप्टर सुरू करण्यासाठी p2 क्लास शोधा
             if (node.nodeType === 1 && node.matches('p.p2')) {
                 chapterCounter++;
                 currentChapterDiv = document.createElement('div');
@@ -32,19 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 chaptersContainer.appendChild(currentChapterDiv);
             }
 
-            // सध्याच्या चॅप्टरमध्ये मजकूर जोडा
             if (currentChapterDiv && node.nodeType === 1) {
-                currentChapterDiv.appendChild(node.cloneNode(true));
+                // मूळ p2 टॅग अध्यायाच्या शीर्षकामध्ये वापरला गेला आहे, म्हणून तो पुन्हा टाकू नका.
+                if (!(node.nodeType === 1 && node.matches('p.p2'))) {
+                    currentChapterDiv.appendChild(node.cloneNode(true));
+                }
             }
         });
         
-        // चॅप्टर्स तयार झाल्यावर TOC बनवा
         generateTOC();
     }
 
     // 2. अनुक्रमणिका (TOC) आपोआप तयार करणे
     function generateTOC() {
-        tocList.innerHTML = ''; // जुनी TOC काढून टाका
+        tocList.innerHTML = '';
         const chapters = document.querySelectorAll('#chapters-container .chapter');
         chapters.forEach(chapter => {
             const chapterTitle = chapter.querySelector('h3').textContent;
@@ -57,40 +59,58 @@ document.addEventListener('DOMContentLoaded', () => {
             tocItem.appendChild(tocLink);
             tocList.appendChild(tocItem);
         });
-        addScrollHighlighting(); // TOC तयार झाल्यावर स्क्रोल इफेक्ट जोडा
+        addScrollHighlighting();
     }
+    
+    // 3. Sidebar (TOC) लपवण्यासाठी/दाखवण्यासाठी कार्यक्षमता
+    tocTitle.addEventListener('click', () => {
+        tocContainer.classList.toggle('collapsed');
+        document.getElementById('chapters-container').classList.toggle('full-width');
+    });
 
-    // 3. स्क्रोल करताना सक्रिय TOC आयटम हायलाइट करणे
+    // 4. स्क्रोल करताना सक्रिय TOC आयटम हायलाइट करणे
     function addScrollHighlighting() {
-        const tocLinks = tocList.querySelectorAll('a');
-        const chapters = document.querySelectorAll('#chapters-container .chapter');
-        
-        window.addEventListener('scroll', () => {
-            let currentChapterId = '';
-            chapters.forEach(chapter => {
-                const chapterTop = chapter.offsetTop;
-                if (window.pageYOffset >= chapterTop - 60) {
-                    currentChapterId = chapter.getAttribute('id');
-                }
-            });
-
-            tocLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentChapterId}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
+        // ... (या फंक्शनमध्ये कोणताही बदल नाही) ...
     }
 
-    // 4. "सुरुवात करा" बटण
+    // 5. "सुरुवात करा" बटण
     startButton.addEventListener('click', () => {
         coverPage.style.display = 'none';
         mainContent.style.display = 'block';
-        structureChapters(); // बटण दाबल्यावर चॅप्टर्स आणि TOC तयार करा
+        structureChapters();
     });
 
-    // 5. फॉन्ट साइज बदलणे
+    // 6. फॉन्ट साइज बदलणे
+    // ... (या फंक्शनमध्ये कोणताही बदल नाही) ...
+
+    // 7. दिवस/रात्र मोड
+    // ... (या फंक्शनमध्ये कोणताही बदल नाही) ...
+
+    // 8. TOC लिंकवर क्लिक केल्यावर स्मूथ स्क्रोल
+    // ... (या फंक्शनमध्ये कोणताही बदल नाही) ...
+
+    // (मागील उत्तरांमधील functions 4, 6, 7, 8 येथे कॉपी करा)
+    // Highlight active TOC item on Scroll
+    const tocLinks = tocList.querySelectorAll('a');
+    window.addEventListener('scroll', () => {
+        let currentChapterId = '';
+        const chapters = document.querySelectorAll('#chapters-container .chapter');
+        chapters.forEach(chapter => {
+            const chapterTop = chapter.offsetTop;
+            if (window.pageYOffset >= chapterTop - 60) {
+                currentChapterId = chapter.getAttribute('id');
+            }
+        });
+
+        tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentChapterId}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // Adjustable Font Size
     let currentFontSize = 18;
     increaseFont.addEventListener('click', () => {
         currentFontSize += 2;
@@ -103,13 +123,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 6. दिवस/रात्र मोड
+    // Day/Night Mode Toggle
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('night-mode');
         document.body.classList.toggle('day-mode');
     });
 
-    // 7. TOC लिंकवर क्लिक केल्यावर स्मूथ स्क्रोल
+    // Smooth scroll for TOC links
     tocList.addEventListener('click', (e) => {
         if (e.target.tagName === 'A') {
             e.preventDefault();
