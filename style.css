@@ -10,11 +10,27 @@ body {
     line-height: 1.8;
 }
 
-@keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
 /* --- Day/Night Mode Themes --- */
-.day-mode { --bg-panel: rgba(255, 255, 255, 0.2); --text-color: #2c3e50; --glow-color: cyan; --shadow-color: rgba(255, 255, 255, 0.5); }
-.night-mode { --bg-panel: rgba(0, 0, 0, 0.3); --text-color: #ecf0f1; --glow-color: magenta; --shadow-color: rgba(0, 0, 0, 0.4); background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+.day-mode {
+    --bg-panel: rgba(255, 255, 255, 0.2);
+    --text-color: #2c3e50;
+    --glow-color: cyan;
+    --shadow-color: rgba(255, 255, 255, 0.5);
+}
+
+.night-mode {
+    --bg-panel: rgba(0, 0, 0, 0.3);
+    --text-color: #ecf0f1;
+    --glow-color: magenta;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
 
 /* --- Cover Page --- */
 #cover-page { display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; color: white; }
@@ -27,52 +43,12 @@ body {
 .header-controls { position: fixed; top: 15px; right: 20px; display: flex; gap: 15px; z-index: 1000; }
 .header-controls button { background: var(--bg-panel); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); color: var(--text-color); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
 
-/* --- Table of Contents (TOC) --- */
-#toc-container { position: fixed; left: 20px; top: 20px; background: var(--bg-panel); backdrop-filter: blur(12px); border-radius: 15px; padding: 15px; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border: 1px solid rgba(255, 255, 255, 0.18); max-height: 80vh; overflow-y: auto; z-index: 999; }
-#toc-title { cursor: pointer; margin: 0 0 10px 0; color: var(--text-color); }
-#toc-list { list-style: none; padding: 0; margin: 0; }
-#toc-list a { display: block; padding: 8px; color: var(--text-color); text-decoration: none; border-radius: 5px; transition: background 0.3s, box-shadow 0.3s; }
-#toc-list a:hover, #toc-list a.active { background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 15px var(--glow-color); }
-
-/* --- Chapter Box --- */
-#chapters-container { margin-left: 300px; padding: 20px; color: var(--text-color); }
-.chapter { background: var(--bg-panel); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 20px var(--shadow-color); transition: transform 0.3s, box-shadow 0.3s; }
-.chapter:hover { transform: translateY(-5px); box-shadow: 0 0 25px var(--glow-color); }
-
-/* --- तुमच्या कस्टम क्लासेससाठी स्टायलिंग --- */
-.chapter h3 { text-align: center; font-size: 1.8em; color: var(--text-color); margin-bottom: 25px; }
-.p1 { font-size: 1.8em; font-weight: bold; text-align: center; color: var(--text-color); margin-bottom: 30px; }
-.p2 { font-size: 1.4em; font-weight: bold; text-align: center; color: var(--text-color); margin-top: 25px; margin-bottom: 15px; }
-.p3 { font-size: 1.15em; line-height: 2.0; text-align: justify; color: var(--text-color); margin-bottom: 15px; }
-
-/* --- Footer --- *//* --- Footer (नवीन स्टाईल) --- */
-footer {
-    position: fixed; /* स्क्रीनवर एका जागी स्थिर राहील */
-    bottom: 20px; /* खालून 20px वर */
-    right: 20px; /* उजवीकडून 20px आत */
-    background: var(--bg-panel); /* लिक्विड ग्लास इफेक्ट */
-    backdrop-filter: blur(10px);
-    padding: 10px 15px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1001; /* सर्वात वर दिसेल */
-    transition: all 0.3s ease;
-}
-
-.footer-text {
-    margin: 0;
-    font-size: 0.9em;
-    color: var(--text-color);
-    text-shadow: 0 0 8px var(--shadow-color);
-}
-
-/* --- Table of Contents (TOC) --- */
+/* --- Table of Contents (Sidebar) --- */
 #toc-container {
     position: fixed;
     left: 20px;
     top: 20px;
-    width: 260px; /* रुंदी निश्चित केली */
+    width: 260px;
     background: var(--bg-panel);
     backdrop-filter: blur(12px);
     border-radius: 15px;
@@ -82,37 +58,68 @@ footer {
     max-height: 90vh;
     overflow-y: auto;
     z-index: 999;
-    transition: transform 0.4s ease-in-out; /* ॲनिमेशनसाठी */
+    transition: transform 0.4s ease-in-out;
 }
 
-#toc-title {
-    cursor: pointer;
-    margin: 0 0 10px 0;
-    color: var(--text-color);
-    text-align: center;
-}
+#toc-title { cursor: pointer; margin: 0 0 10px 0; color: var(--text-color); text-align: center; }
+#toc-list { list-style: none; padding: 0; margin: 0; }
+#toc-list a { display: block; padding: 8px; color: var(--text-color); text-decoration: none; border-radius: 5px; transition: background 0.3s, box-shadow 0.3s; }
+#toc-list a:hover, #toc-list a.active { background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 15px var(--glow-color); }
 
-/* Sidebar लपल्यावर (collapsed) काय होईल */
+/* Collapsed Sidebar Style */
 #toc-container.collapsed {
-    transform: translateX(-110%); /* Sidebar डावीकडे बाहेर जाईल */
+    transform: translateX(-120%);
 }
 
-#toc-container.collapsed #toc-list {
-    display: none; /* यादी लपवा */
-}
-
-/* --- Chapter Box --- */
+/* --- Chapters Container --- */
 #chapters-container {
-    margin-left: 300px; /* Sidebar साठी जागा सोडा */
+    margin-left: 300px;
     padding: 20px;
     color: var(--text-color);
-    transition: margin-left 0.4s ease-in-out; /* ॲनिमेशनसाठी */
+    transition: margin-left 0.4s ease-in-out;
 }
 
-/* Sidebar लपल्यावर चॅप्टर पूर्ण रुंदी घेईल */
 #chapters-container.full-width {
-    margin-left: 20px; /* डावीकडे कमी जागा सोडा */
+    margin-left: 20px;
 }
 
-/* (बाकी सर्व CSS नियम जसेच्या तसे ठेवा) */
+.chapter {
+    background: var(--bg-panel);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
+.chapter:hover { transform: translateY(-5px); box-shadow: 0 0 25px var(--glow-color); }
+
+/* --- Custom Class Styling --- */
+.chapter h3 { text-align: center; font-size: 1.8em; color: var(--text-color); margin-bottom: 25px; }
+.p1 { font-size: 1.8em; font-weight: bold; text-align: center; color: var(--text-color); margin-bottom: 30px; }
+.p2 { font-size: 1.4em; font-weight: bold; text-align: center; color: var(--text-color); margin-top: 25px; margin-bottom: 15px; }
+.p3 { font-size: 1.15em; line-height: 2.0; text-align: justify; color: var(--text-color); margin-bottom: 15px; }
+
+/* --- Footer (Overlay) --- */
+footer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--text-color);
+    text-shadow: 0 0 8px var(--shadow-color);
+}
