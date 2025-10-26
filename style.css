@@ -1,164 +1,52 @@
-/* --- General Styles & Background --- */
+/* --- General & Font Setup --- */
+:root {
+    --navbar-height: 60px;
+}
 body {
     margin: 0;
     font-family: 'Tiro Devanagari Marathi', serif;
-    background: linear-gradient(135deg, #fce38a, #f38181, #95e1d3, #eaffd0);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.4s, color 0.4s;
+    font-size: 18px;
+    line-height: 1.8;
 }
+* { box-sizing: border-box; }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* --- Day/Night Mode Themes --- */
-.day-mode {
-    --bg-panel: rgba(255, 255, 255, 0.2);
-    --text-color: #333;
-    --glow-color: cyan;
-    --shadow-color: rgba(255, 255, 255, 0.5);
-}
-
-.night-mode {
-    --bg-panel: rgba(0, 0, 0, 0.3);
-    --text-color: #f0f0f0;
-    --glow-color: magenta;
-    --shadow-color: rgba(0, 0, 0, 0.4);
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-}
+/* --- Themes & Background --- */
+.day-mode { --bg-color: #f4f8ff; --text-color: #2c3e50; --panel-bg: rgba(255, 255, 255, 0.5); --glow-color: #00aaff; }
+.night-mode { --bg-color: #1a202c; --text-color: #e2e8f0; --panel-bg: rgba(0, 0, 0, 0.3); --glow-color: #ff007f; }
+body { background-color: var(--bg-color); color: var(--text-color); }
 
 /* --- Cover Page --- */
-#cover-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    color: white;
-}
+#cover-page { display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+#cover-page h1 { font-size: 4rem; }
+#cover-page p { font-size: 1.5rem; }
+#start-button { padding: 12px 25px; font-size: 1rem; cursor: pointer; border: 2px solid white; background: transparent; color: white; border-radius: 50px; transition: all 0.3s; }
+#start-button:hover { background: white; color: #764ba2; }
 
-.cover-content h1 {
-    font-size: 4rem;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-}
+/* --- Sticky Navbar --- */
+#navbar { position: fixed; top: 0; left: 0; width: 100%; height: var(--navbar-height); background: var(--panel-bg); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(128, 128, 128, 0.2); z-index: 1000; }
+.navbar-content { display: flex; justify-content: space-between; align-items: center; height: 100%; padding: 0 20px; }
+.navbar-title { font-size: 1.5em; font-weight: bold; }
+.navbar-controls { display: flex; gap: 10px; }
+#navbar button { background: transparent; border: none; color: var(--text-color); cursor: pointer; font-size: 1.2rem; padding: 8px; border-radius: 8px; transition: background-color 0.3s; }
+#navbar button:hover { background-color: rgba(128, 128, 128, 0.2); }
+#hamburger-btn { font-size: 2rem; }
 
-.cover-content p {
-    font-size: 1.5rem;
-}
+/* --- TOC Sidebar (Hamburger Menu) --- */
+#toc-sidebar { position: fixed; top: var(--navbar-height); left: 0; width: 300px; height: calc(100vh - var(--navbar-height)); background: var(--panel-bg); backdrop-filter: blur(15px); border-right: 1px solid rgba(128, 128, 128, 0.2); transform: translateX(-100%); transition: transform 0.4s ease; z-index: 999; overflow-y: auto; }
+#toc-sidebar.show { transform: translateX(0); }
+#toc-list { list-style: none; padding: 15px; margin: 0; }
+#toc-list a { display: block; padding: 12px; color: var(--text-color); text-decoration: none; border-radius: 8px; transition: background-color 0.3s; }
+#toc-list a:hover, #toc-list a.active { background-color: var(--glow-color); color: white; }
 
-#start-button {
-    padding: 12px 25px;
-    font-size: 1rem;
-    cursor: pointer;
-    border: 2px solid white;
-    background: transparent;
-    color: white;
-    border-radius: 50px;
-    transition: background 0.3s, box-shadow 0.3s;
-}
-
-#start-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 20px var(--glow-color);
-}
-
-
-/* --- Main Content & Controls --- */
-.header-controls {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    display: flex;
-    gap: 15px;
-    z-index: 1000;
-}
-
-.header-controls button {
-    background: var(--bg-panel);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: var(--text-color);
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* --- Table of Contents (TOC) --- */
-#toc-container {
-    position: fixed;
-    left: 20px;
-    top: 20px;
-    background: var(--bg-panel);
-    backdrop-filter: blur(12px);
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    max-height: 80vh;
-    overflow-y: auto;
-    z-index: 999;
-}
-
-#toc-title {
-    cursor: pointer;
-    margin: 0 0 10px 0;
-    color: var(--text-color);
-}
-
-#toc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#toc-list a {
-    display: block;
-    padding: 8px;
-    color: var(--text-color);
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s, box-shadow 0.3s;
-}
-
-#toc-list a:hover, #toc-list a.active {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 15px var(--glow-color);
-}
-
-/* --- Chapter Box --- */
-#chapters-container {
-    margin-left: 300px; /* Space for TOC */
-    padding: 20px;
-    color: var(--text-color);
-}
-
-.chapter {
-    background: var(--bg-panel);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 20px var(--shadow-color);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.chapter:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px var(--glow-color);
-}
+/* --- Content & Chapters --- */
+#chapters-container { padding: calc(var(--navbar-height) + 20px) 20px 20px 20px; }
+.chapter { background: var(--panel-bg); backdrop-filter: blur(5px); border-radius: 15px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(128, 128, 128, 0.1); }
+.p1, .p2, .p3 { color: var(--text-color); }
+.chapter h3 { text-align: center; font-size: 1.8em; margin-bottom: 25px; }
+.p2 { font-size: 1.4em; font-weight: bold; text-align: center; margin-top: 25px; margin-bottom: 15px; }
+.p3 { font-size: 1.15em; line-height: 2.0; text-align: justify; margin-bottom: 15px; }
 
 /* --- Footer --- */
-footer {
-    text-align: center;
-    padding: 20px;
-}
-
-.footer-text {
-    font-size: 1rem;
-    color: var(--text-color);
-    text-shadow: 0 0 8px var(--shadow-color);
-}
+footer { position: fixed; bottom: 15px; right: 20px; background: var(--panel-bg); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 10px; z-index: 1001; }
+.footer-text { margin: 0; font-size: 0.9em; }
