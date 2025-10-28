@@ -33,7 +33,7 @@ body { background-color: var(--bg-color); color: var(--text-color); }
 #toc-list a:hover, #toc-list a.active { background-color: var(--glow-color); color: white; }
 
 /* --- Content & Chapters --- */
-#chapters-container { padding: calc(var(--navbar-height) + 20px) 20px 20px 20px; }
+#chapters-container { padding: calc(var(--navbar-height) + 20px) 20px 80px 20px; } /* फुटरसाठी खाली जागा */
 .chapter { background: var(--panel-bg); backdrop-filter: blur(5px); border-radius: 15px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(128, 128, 128, 0.1); }
 .chapter h3 { text-align: center; font-size: 1.8em; margin-bottom: 25px; }
 
@@ -43,5 +43,21 @@ body { background-color: var(--bg-color); color: var(--text-color); }
 .p6 { font-weight: bold; font-style: italic; color: #8E44AD; text-align: center; font-size: 1.1em; margin: 20px 0; }
 .night-mode .p6 { color: #BB86FC; }
 
-/* --- Footer --- */
-footer { text-align: center; padding: 20px; font-size: 0.9em; }
+/* --- Footer (Overlay) --- */
+footer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
+footer .footer-text {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
