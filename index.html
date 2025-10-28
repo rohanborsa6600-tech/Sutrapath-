@@ -6,7 +6,7 @@
     <title>सूत्रपाठ</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="day-mode">
 
     <!-- Cover Page -->
     <div id="cover-page">
@@ -23,32 +23,31 @@
         <nav id="navbar">
             <div class="navbar-content">
                 <button id="hamburger-btn">☰</button>
-                <span id="navbar-chapter-title" class="navbar-title">सूत्रपाठ</span>
+                <span class="navbar-title">सूत्रपाठ</span>
                 <div class="navbar-controls">
                     <button id="decrease-font">A-</button>
                     <button id="increase-font">A+</button>
+                    <button id="theme-toggle">☀️/🌙</button>
                 </div>
             </div>
         </nav>
 
         <div id="toc-sidebar">
-            <ul id="toc-list"></ul>
+            <ul id="toc-list">
+                <!-- JavaScript द्वारे आपोआप तयार होईल -->
+            </ul>
         </div>
         
         <main id="chapters-container">
-            <!-- JavaScript येथे चॅप्टर्स आपोआप टाकेल -->
+            <!-- चॅप्टर्स येथे आपोआप तयार होतील -->
         </main>
-        
-        <div id="pagination-controls">
-            <button id="prev-chapter-btn">« पूर्वीचा</button>
-            <span id="chapter-indicator"></span>
-            <button id="next-chapter-btn">पुढील »</button>
-        </div>
+
+        <footer>
+            <p class="footer-text">Made with 💎 by ADX</p>
+        </footer>
     </div>
     
-    <!-- ======================================================= -->
-    <!-- तुमचा संपूर्ण कच्चा HTML मजकूर फक्त येथेच टाका -->
-    <!-- ======================================================= -->
+    <!-- तुमचा कच्चा HTML मजकूर येथे टाका -->
     <div id="raw-html-input" style="display: none;">
         <p class="p1"><span class="s1">सूत्रपाठ<span class="Apple-converted-space"> </span></span></p>
 <p class="p2"><span class="s2">पूर्वी<span class="Apple-converted-space"> </span></span></p>
@@ -276,7 +275,6 @@
 
         <!-- तुमचा उर्वरित सर्व HTML कोड येथे टाका... -->
     </div>
-    <!-- ======================================================= -->
 
     <script src="script.js"></script>
 </body>
