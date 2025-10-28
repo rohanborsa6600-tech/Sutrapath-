@@ -7,109 +7,99 @@ document.addEventListener('DOMContentLoaded', () => {
     const tocSidebar = document.getElementById('toc-sidebar');
     const chaptersContainer = document.getElementById('chapters-container');
     const tocList = document.getElementById('toc-list');
-    const prevBtn = document.getElementById('prev-chapter-btn');
-    const nextBtn = document.getElementById('next-chapter-btn');
-    const chapterIndicator = document.getElementById('chapter-indicator');
-    const navbarChapterTitle = document.getElementById('navbar-chapter-title');
-
-    let chapters = [];
-    let currentChapterIndex = 0;
+    const increaseFont = document.getElementById('increase-font');
+    const decreaseFont = document.getElementById('decrease-font');
+    const themeToggle = document.getElementById('theme-toggle');
 
     // "सुरुवात करा" बटण
     startButton.addEventListener('click', () => {
         coverPage.style.display = 'none';
         mainContent.style.display = 'block';
-        if (chapters.length === 0) {
+        if (chaptersContainer.children.length === 0) {
             structureChapters();
         }
+    });
+
+    // Hamburger मेन्यू
+    hamburgerBtn.addEventListener('click', () => {
+        tocSidebar.classList.toggle('show');
     });
 
     // चॅप्टर्स आपोआप तयार करणे
     function structureChapters() {
         const rawHtmlContainer = document.getElementById('raw-html-input');
-        if (!rawHtmlContainer) {
-            console.error("त्रुटी: 'raw-html-input' div सापडला नाही!");
-            return;
-        }
+        if (!rawHtmlContainer) return;
         chaptersContainer.innerHTML = '';
-        
         let chapterDiv = null;
-        Array.from(rawHtmlContainer.children).forEach(node => {
-            if (node.nodeType !== 1) return; // फक्त <p> सारखे टॅग घ्या
+        let chapterCounter = 0;
 
+        Array.from(rawHtmlContainer.children).forEach(node => {
             if (node.matches('p.p2')) {
-                if (chapterDiv) chaptersContainer.appendChild(chapterDiv);
+                chapterCounter++;
                 chapterDiv = document.createElement('div');
                 chapterDiv.className = 'chapter';
+                chapterDiv.id = `ch${chapterCounter}`; // स्क्रोलिंगसाठी ID
                 const title = document.createElement('h3');
                 title.innerHTML = node.innerHTML;
                 chapterDiv.appendChild(title);
+                chaptersContainer.appendChild(chapterDiv);
             } else if (chapterDiv) {
                 chapterDiv.appendChild(node.cloneNode(true));
             }
         });
-
-        if (chapterDiv) {
-            chaptersContainer.appendChild(chapterDiv);
-        } else {
-             console.error("त्रुटी: एकही अध्याय तयार झाला नाही. तुमच्या कच्च्या HTML मध्ये '<p class=\"p2\">' टॅग आहे का, ते तपासा.");
-        }
-
-        chapters = Array.from(chaptersContainer.children);
-        chapters.forEach((chap, index) => chap.id = `ch${index}`);
-        
-        if (chapters.length > 0) {
-            generateTOC();
-            showChapter(0);
-        }
+        generateTOC();
     }
 
     // TOC तयार करणे
     function generateTOC() {
         tocList.innerHTML = '';
-        chapters.forEach((chapter, index) => {
+        const chapters = chaptersContainer.querySelectorAll('.chapter');
+        chapters.forEach(chapter => {
             const title = chapter.querySelector('h3').textContent;
+            const id = chapter.id;
             const li = document.createElement('li');
-            li.innerHTML = `<a href="#ch${index}" data-index="${index}">${title}</a>`;
+            li.innerHTML = `<a href="#${id}">${title}</a>`;
             tocList.appendChild(li);
+        });
+        addScrollHighlighting();
+    }
+
+    // स्क्रोल करताना TOC मध्ये हायलाईट करणे
+    function addScrollHighlighting() {
+        const tocLinks = tocList.querySelectorAll('a');
+        window.addEventListener('scroll', () => {
+            let currentId = '';
+            chaptersContainer.querySelectorAll('.chapter').forEach(chapter => {
+                const chapterTop = chapter.offsetTop;
+                if (window.scrollY >= chapterTop - 100) {
+                    currentId = chapter.id;
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentId}`) {
+                    link.classList.add('active');
+                }
+            });
         });
     }
 
-    // एक अध्याय दाखवणे
-    function showChapter(index) {
-        if(chapters.length === 0) return;
-        chapters.forEach((chapter, i) => chapter.classList.toggle('active', i === index));
-        currentChapterIndex = index;
-        updateUI();
-    }
-
-    // UI अपडेट करणे
-    function updateUI() {
-        prevBtn.disabled = currentChapterIndex === 0;
-        nextBtn.disabled = currentChapterIndex >= chapters.length - 1;
-        chapterIndicator.textContent = `${currentChapterIndex + 1} / ${chapters.length}`;
-        navbarChapterTitle.textContent = chapters[currentChapterIndex].querySelector('h3').textContent;
-        tocList.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-        const activeLink = tocList.querySelector(`a[data-index="${currentChapterIndex}"]`);
-        if (activeLink) activeLink.classList.add('active');
-    }
-
-    // Events
-    hamburgerBtn.addEventListener('click', () => tocSidebar.classList.toggle('show'));
-    prevBtn.addEventListener('click', () => { if (currentChapterIndex > 0) showChapter(currentChapterIndex - 1); });
-    nextBtn.addEventListener('click', () => { if (currentChapterIndex < chapters.length - 1) showChapter(currentChapterIndex + 1); });
+    // TOC लिंकवर क्लिक केल्यावर स्मूथ स्क्रोल
     tocList.addEventListener('click', e => {
         if (e.target.tagName === 'A') {
             e.preventDefault();
-            showChapter(parseInt(e.target.dataset.index, 10));
             tocSidebar.classList.remove('show');
+            const targetElement = document.querySelector(e.target.getAttribute('href'));
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     });
 
-    // Font Size Controls
-    const increaseFont = document.getElementById('increase-font');
-    const decreaseFont = document.getElementById('decrease-font');
+    // Controls: Font Size & Theme
     let fontSize = 18;
     increaseFont.addEventListener('click', () => { fontSize += 2; document.body.style.fontSize = `${fontSize}px`; });
     decreaseFont.addEventListener('click', () => { if (fontSize > 12) { fontSize -= 2; document.body.style.fontSize = `${fontSize}px`; } });
+    themeToggle.addEventListener('click', () => { document.body.classList.toggle('night-mode'); document.body.classList.toggle('day-mode'); });
 });
