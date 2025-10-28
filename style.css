@@ -1,17 +1,6 @@
 /* --- General & Font Setup --- */
-:root {
-    --navbar-height: 60px;
-    --theme-brown: #4a2c1a; /* इमेजमधील गडद तपकिरी रंग */
-    --theme-gold: #c89c4d;  /* इमेजमधील सोनेरी रंग */
-    --theme-cream: #fdfaf2; /* इमेजमधील कागदाचा रंग */
-}
-body {
-    margin: 0;
-    font-family: 'Tiro Devanagari Marathi', serif;
-    background-color: var(--theme-brown);
-    font-size: 18px;
-    line-height: 1.8;
-}
+:root { --navbar-height: 60px; --theme-brown: #4a2c1a; --theme-gold: #c89c4d; --theme-cream: #fdfaf2; }
+body { margin: 0; font-family: 'Tiro Devanagari Marathi', serif; background-color: var(--theme-brown); font-size: 18px; line-height: 1.8; }
 * { box-sizing: border-box; }
 
 /* --- Cover Page --- */
@@ -37,21 +26,14 @@ body {
 #toc-list a:hover { background-color: var(--theme-brown); }
 #toc-list a.active { background-color: var(--theme-gold); color: var(--theme-brown); font-weight: bold; }
 
-/* --- Content & Chapters (मुख्य बदल) --- */
-#chapters-container { padding: calc(var(--navbar-height) + 20px) 20px 80px 20px; }
-.chapter {
-    display: none; /* सुरुवातीला लपलेले */
-    background-image: url('border-bg.jpeg');
-    background-size: 100% 100%; /* इमेज पूर्णपणे फिट करण्यासाठी */
-    background-repeat: no-repeat;
-    padding: 12% 15%; /* मजकूर बॉर्डरच्या आत ढकलण्यासाठी */
-    min-height: 80vh;
-}
+/* --- Content & Chapters --- */
+#chapters-container { padding: calc(var(--navbar-height) + 20px) 20px 100px 20px; }
+.chapter { display: none; background-image: url('border-bg.jpeg'); background-size: 100% 100%; background-repeat: no-repeat; padding: 12% 15%; min-height: 75vh; }
 .chapter.active { display: block; }
 .chapter h3 { text-align: center; color: var(--theme-brown); font-size: 1.8em; margin-bottom: 25px; }
 
 /* Custom Class Styling */
-.p2, .p3, .p6 { color: #5c4033; } /* मजकुराचा रंग */
+.p2, .p3, .p6 { color: #5c4033; }
 .p2 { font-size: 1.4em; font-weight: bold; text-align: center; margin-top: 25px; margin-bottom: 15px; }
 .p3 { font-size: 1.15em; line-height: 2.0; text-align: justify; margin-bottom: 15px; }
 .p6 { font-weight: bold; font-style: italic; color: #800000; text-align: center; font-size: 1.1em; margin: 20px 0; }
