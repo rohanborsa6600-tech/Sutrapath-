@@ -1,63 +1,63 @@
 /* --- General & Font Setup --- */
-:root { --navbar-height: 60px; }
-body { margin: 0; font-family: 'Tiro Devanagari Marathi', serif; transition: background-color 0.4s, color 0.4s; font-size: 18px; line-height: 1.8; }
+:root {
+    --navbar-height: 60px;
+    --theme-brown: #4a2c1a; /* इमेजमधील गडद तपकिरी रंग */
+    --theme-gold: #c89c4d;  /* इमेजमधील सोनेरी रंग */
+    --theme-cream: #fdfaf2; /* इमेजमधील कागदाचा रंग */
+}
+body {
+    margin: 0;
+    font-family: 'Tiro Devanagari Marathi', serif;
+    background-color: var(--theme-brown);
+    font-size: 18px;
+    line-height: 1.8;
+}
 * { box-sizing: border-box; }
 
-/* --- Themes & Background --- */
-.day-mode { --bg-color: #f4f8ff; --text-color: #2c3e50; --panel-bg: rgba(255, 255, 255, 0.5); --glow-color: #00aaff; }
-.night-mode { --bg-color: #1a202c; --text-color: #e2e8f0; --panel-bg: rgba(0, 0, 0, 0.3); --glow-color: #ff007f; }
-body { background-color: var(--bg-color); color: var(--text-color); }
-
 /* --- Cover Page --- */
-#cover-page { display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+#cover-page { display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; background: var(--theme-brown); color: var(--theme-cream); }
 #cover-page h1 { font-size: 4rem; }
 #cover-page p { font-size: 1.5rem; }
-#start-button { padding: 12px 25px; font-size: 1rem; cursor: pointer; border: 2px solid white; background: transparent; color: white; border-radius: 50px; transition: all 0.3s; }
-#start-button:hover { background: white; color: #764ba2; }
+#start-button { padding: 12px 25px; font-size: 1rem; cursor: pointer; border: 2px solid var(--theme-gold); background: transparent; color: var(--theme-cream); border-radius: 50px; transition: all 0.3s; }
+#start-button:hover { background: var(--theme-gold); color: var(--theme-brown); }
 
 /* --- Sticky Navbar --- */
-#navbar { position: fixed; top: 0; left: 0; width: 100%; height: var(--navbar-height); background: var(--panel-bg); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(128, 128, 128, 0.2); z-index: 1000; }
+#navbar { position: fixed; top: 0; left: 0; width: 100%; height: var(--navbar-height); background-color: var(--theme-brown); border-bottom: 2px solid var(--theme-gold); z-index: 1000; }
 .navbar-content { display: flex; justify-content: space-between; align-items: center; height: 100%; padding: 0 20px; }
-.navbar-title { font-size: 1.2em; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.navbar-title { color: var(--theme-cream); font-size: 1.2em; font-weight: bold; }
 .navbar-controls { display: flex; gap: 10px; }
-#navbar button { background: transparent; border: none; color: var(--text-color); cursor: pointer; font-size: 1.2rem; padding: 8px; border-radius: 8px; transition: background-color 0.3s; }
-#navbar button:hover { background-color: rgba(128, 128, 128, 0.2); }
-#hamburger-btn { font-size: 2rem; }
+#navbar button { background: transparent; border: 1px solid var(--theme-gold); color: var(--theme-cream); cursor: pointer; font-size: 1.2rem; padding: 5px 8px; border-radius: 8px; }
+#hamburger-btn { border: none; font-size: 2rem; }
 
 /* --- TOC Sidebar --- */
-#toc-sidebar { position: fixed; top: var(--navbar-height); left: 0; width: 300px; height: calc(100vh - var(--navbar-height)); background: var(--panel-bg); backdrop-filter: blur(15px); border-right: 1px solid rgba(128, 128, 128, 0.2); transform: translateX(-100%); transition: transform 0.4s ease; z-index: 999; overflow-y: auto; }
+#toc-sidebar { position: fixed; top: var(--navbar-height); left: 0; width: 300px; height: calc(100vh - var(--navbar-height)); background-color: #5f3a24; border-right: 2px solid var(--theme-gold); transform: translateX(-100%); transition: transform 0.4s ease; z-index: 999; overflow-y: auto; }
 #toc-sidebar.show { transform: translateX(0); }
 #toc-list { list-style: none; padding: 15px; margin: 0; }
-#toc-list a { display: block; padding: 12px; color: var(--text-color); text-decoration: none; border-radius: 8px; transition: background-color 0.3s; }
-#toc-list a:hover, #toc-list a.active { background-color: var(--glow-color); color: white; }
+#toc-list a { display: block; padding: 12px; color: var(--theme-cream); text-decoration: none; border-radius: 8px; }
+#toc-list a:hover { background-color: var(--theme-brown); }
+#toc-list a.active { background-color: var(--theme-gold); color: var(--theme-brown); font-weight: bold; }
 
-/* --- Content & Chapters --- */
+/* --- Content & Chapters (मुख्य बदल) --- */
 #chapters-container { padding: calc(var(--navbar-height) + 20px) 20px 80px 20px; }
-.chapter { background: var(--panel-bg); backdrop-filter: blur(5px); border-radius: 15px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(128, 128, 128, 0.1); display: none; }
+.chapter {
+    display: none; /* सुरुवातीला लपलेले */
+    background-image: url('border-bg.jpeg');
+    background-size: 100% 100%; /* इमेज पूर्णपणे फिट करण्यासाठी */
+    background-repeat: no-repeat;
+    padding: 12% 15%; /* मजकूर बॉर्डरच्या आत ढकलण्यासाठी */
+    min-height: 80vh;
+}
 .chapter.active { display: block; }
-.chapter h3 { text-align: center; font-size: 1.8em; margin-bottom: 25px; }
+.chapter h3 { text-align: center; color: var(--theme-brown); font-size: 1.8em; margin-bottom: 25px; }
 
-/* --- Custom Class Styling --- */
+/* Custom Class Styling */
+.p2, .p3, .p6 { color: #5c4033; } /* मजकुराचा रंग */
 .p2 { font-size: 1.4em; font-weight: bold; text-align: center; margin-top: 25px; margin-bottom: 15px; }
 .p3 { font-size: 1.15em; line-height: 2.0; text-align: justify; margin-bottom: 15px; }
-
-.p6 {
-    font-weight: bold;
-    font-style: italic;
-    color: #8E44AD; /* Day mode color */
-    text-align: center;
-    font-size: 1.1em;
-    margin: 20px 0;
-}
-.night-mode .p6 {
-    color: #BB86FC; /* Night mode color */
-}
+.p6 { font-weight: bold; font-style: italic; color: #800000; text-align: center; font-size: 1.1em; margin: 20px 0; }
 
 /* --- Pagination Controls --- */
-#pagination-controls { position: fixed; bottom: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--panel-bg); backdrop-filter: blur(12px); border-top: 1px solid rgba(128, 128, 128, 0.2); z-index: 998; }
-#pagination-controls button { background: var(--glow-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1em; font-weight: bold; }
-#pagination-controls button:disabled { background: #ccc; cursor: not-allowed; }
-#chapter-indicator { font-weight: bold; }
-
-/* --- Footer --- */
-footer { display: none; }
+#pagination-controls { position: fixed; bottom: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: var(--theme-brown); border-top: 2px solid var(--theme-gold); z-index: 998; }
+#pagination-controls button { background: var(--theme-gold); color: var(--theme-brown); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1em; font-weight: bold; }
+#pagination-controls button:disabled { background: #a89378; cursor: not-allowed; }
+#chapter-indicator { color: var(--theme-cream); font-weight: bold; }
